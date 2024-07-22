@@ -1,48 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int opt, re_opt, i, calculate, price;
+int opt, re_opt, num, calculate, price;
 int payment[]={0, 1500, 1200, 1700, 1300, 1400, 1100, 1600};
-char D_Co[]={"ÄÚÄ«Äİ¶ó500ml"}, D_Sik[]={"½ÄÇı500ml"}, D_Rad[]={"RadBull 300ml"}, D_Fan[]={"¿À·»ÁöÈ¯Å¸500ml"};
-char D_Wel[]={"À£Ä¡½ºÆ÷µå500ml"}, D_Mil[]={"¹ĞÅ°½º300ml"}, D_Orenge[]={"¿À·»ÁöÁÖ½º600ml"};
+char D_Co[]={"ì½”ì¹´ì½œë¼500ml"}, D_Sik[]={"ì‹í˜œ500ml"}, D_Rad[]={"RadBull 300ml"}, D_Fan[]={"ì˜¤ë Œì§€í™˜íƒ€500ml"};
+char D_Wel[]={"ì›°ì¹˜ìŠ¤í¬ë“œ500ml"}, D_Mil[]={"ë°€í‚¤ìŠ¤300ml"}, D_Orenge[]={"ì˜¤ë Œì§€ì£¼ìŠ¤600ml"};
 
 void DrinkList(void);
+int DrinkSelect(void);
 int Num(void);
+int DrinkReSelect(void);
 int Calculate(void);
 int Balance(void);
-int DrinkSelect(void);
-int DrinkReSelect(void);
 
 void DrinkList(void)
 {
-	printf("¦®¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦³¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯\n");
-	printf("¦­0. µÇµ¹¾Æ°¡±â		     ¦­ 4. %-12s (%6d¿ø)¦­ \n", D_Fan, payment[4]);
-	printf("¦²¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¶¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦´\n");
-	printf("¦­1. %-12s (%6d¿ø) ¦­ 5. %-12s (%6d¿ø)¦­ \n", D_Co, payment[1], D_Wel, payment[5]);
-	printf("¦²¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¶¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦´\n");
-	printf("¦­2. %-12s (%6d¿ø)  ¦­ 6. %-12s    (%6d¿ø)¦­ \n", D_Sik, payment[2], D_Mil, payment[6]);
-	printf("¦²¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¶¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦´\n");
-	printf("¦­3. %-12s (%6d¿ø) ¦­ 7. %-12s (%6d¿ø)¦­ \n", D_Rad, payment[3], D_Orenge, payment[7]);
-	printf("¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦µ¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°\n");
+	printf("â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”³â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”“\n");
+	printf("â”ƒ0. ë˜ëŒì•„ê°€ê¸°		     â”ƒ 4. %-12s (%6dì›)â”ƒ \n", D_Fan, payment[4]);
+	printf("â”£â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â•‹â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”«\n");
+	printf("â”ƒ1. %-12s (%6dì›) â”ƒ 5. %-12s (%6dì›)â”ƒ \n", D_Co, payment[1], D_Wel, payment[5]);
+	printf("â”£â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â•‹â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”«\n");
+	printf("â”ƒ2. %-12s (%6dì›)  â”ƒ 6. %-12s    (%6dì›)â”ƒ \n", D_Sik, payment[2], D_Mil, payment[6]);
+	printf("â”£â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â•‹â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”«\n");
+	printf("â”ƒ3. %-12s (%6dì›) â”ƒ 7. %-12s (%6dì›)â”ƒ \n", D_Rad, payment[3], D_Orenge, payment[7]);
+	printf("â”—â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”»â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”›\n");
 }
 
 int Num(void)
 {	
-	printf("±¸¸Å °¹¼ö ÀÔ·Â: ");
-	scanf("%d", &i);
+	printf("êµ¬ë§¤ ê°¯ìˆ˜ ì…ë ¥: ");
+	scanf("%d", &num);
 	printf("\n");
 	
-	return i;
+	return num;
 }
 
 int Calculate(void)
 {
-	printf("°áÁ¦ÇÏ½Ç ±İ¾×À» ÀÔ·ÂÇÏ¼¼¿ä: ");
+	printf("ê²°ì œí•˜ì‹¤ ê¸ˆì•¡ì„ ì…ë ¥í•˜ì„¸ìš”: ");
 	scanf("%d", &calculate);
 	
 	printf("\n");
 	
-	printf("°áÁ¦±İ¾×: %d¿ø \n", calculate);
+	printf("ê²°ì œê¸ˆì•¡: %dì› \n", calculate);
 	if(calculate<price)
 	{
 		calculate=price-calculate;
@@ -50,7 +50,7 @@ int Calculate(void)
 	}
 	else
 	{
-	printf("°Å½º¸§µ·: %d¿ø \n", calculate-price);
+	printf("ê±°ìŠ¤ë¦„ëˆ: %dì› \n", calculate-price);
 	}
 	
 	return calculate;
@@ -59,84 +59,84 @@ int Calculate(void)
 int Balance(void)
 {
 	printf("\n");
-	printf("±İ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù. \n\n");
-	printf("ºÎÁ·ÇÑ ±İ¾×: %d¿ø\n\n", calculate);
-	printf("°áÁ¦±İ¾×ÀÌ ºÎÁ·ÇÏ¿© °áÁ¦°¡ Ãë¼ÒµÇ¾ú½À´Ï´Ù. \n\n");
-	printf("Àç°áÁ¦¸¦ À§ÇØ¼­ °áÁ¦Ã¢À¸·Î µÇµ¹¾Æ°©´Ï´Ù. \n\n");
+	printf("ê¸ˆì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤. \n\n");
+	printf("ë¶€ì¡±í•œ ê¸ˆì•¡: %dì›\n\n", calculate);
+	printf("ê²°ì œê¸ˆì•¡ì´ ë¶€ì¡±í•˜ì—¬ ê²°ì œê°€ ì·¨ì†Œë˜ì—ˆìŠµë‹ˆë‹¤. \n\n");
+	printf("ì¬ê²°ì œë¥¼ ìœ„í•´ì„œ ê²°ì œì°½ìœ¼ë¡œ ë˜ëŒì•„ê°‘ë‹ˆë‹¤. \n\n");
 	
 	return Calculate();
 }
 
 int DrinkSelect(void)
 {
-	printf("À½·á¼ö ¼±ÅÃ: ");
+	printf("ìŒë£Œìˆ˜ ì„ íƒ: ");
 	scanf("%d", &opt);
 	printf("\n");
 	
 	switch(opt)
 	{
 		case 0:
-			printf("±¸¸Å¸¦ Ãë¼ÒÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("êµ¬ë§¤ë¥¼ ì·¨ì†Œí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			break;
 		case 1:
-			printf("ÄÚÄ«Äİ¶ó¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ì½”ì¹´ì½œë¼ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("ÄÚÄ«Äİ¶ó %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ì½”ì¹´ì½œë¼ %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 2:
-			printf("½ÄÇı¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ì‹í˜œë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("½ÄÇı %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ì‹í˜œ %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 3:
-			printf("RadBull¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("RadBullë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("RadBull %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("RadBull %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 4:
-			printf("¿À·»ÁöÈ¯Å¸¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ì˜¤ë Œì§€í™˜íƒ€ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("¿À·»ÁöÈ¯Å¸ %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ì˜¤ë Œì§€í™˜íƒ€ %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 5:
-			printf("À£Ä¡½ºÆ÷µµ¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ì›°ì¹˜ìŠ¤í¬ë„ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("À£Ä¡½ºÆ÷µµ %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ì›°ì¹˜ìŠ¤í¬ë„ %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 6:
-			printf("¹ĞÅ°½º¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ë°€í‚¤ìŠ¤ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("¹ĞÅ°½º %dÄµ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å±İ¾×: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ë°€í‚¤ìŠ¤ %dìº” ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê¸ˆì•¡: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;
 		case 7:
-			printf("¿À·£ÁöÁÖ½º¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n\n");
+			printf("ì˜¤ëœì§€ì£¼ìŠ¤ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n\n");
 			Num();
-			printf("¿À·£ÁöÁÖ½º %dÆÑ ÁÖ¹®ÇÏ¼Ì½À´Ï´Ù. \n", i);
-			printf("±¸¸Å±İ¾×: %d¿ø ÀÔ´Ï´Ù. \n\n", payment[opt]*i);
-			price+=(payment[opt]*i);
+			printf("ì˜¤ëœì§€ì£¼ìŠ¤ %díŒ© ì£¼ë¬¸í•˜ì…¨ìŠµë‹ˆë‹¤. \n", num);
+			printf("êµ¬ë§¤ê¸ˆì•¡: %dì› ì…ë‹ˆë‹¤. \n\n", payment[opt]*num);
+			price+=(payment[opt]*num);
 			DrinkReSelect();
 			break;			
 		default :
-			printf("Ç°ÀıµÈ ¸Ş´º¸¦ ¼±ÅÃÇÏ¼Ì°Å³ª ¾ø´Â ¸Ş´º¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù. \n");
-			printf("´Ù½Ã ¼±ÅÃÇØÁÖ¼¼¿ä. \n\n"); 
+			printf("í’ˆì ˆëœ ë©”ë‰´ë¥¼ ì„ íƒí•˜ì…¨ê±°ë‚˜ ì—†ëŠ” ë©”ë‰´ë¥¼ ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤. \n");
+			printf("ë‹¤ì‹œ ì„ íƒí•´ì£¼ì„¸ìš”. \n\n"); 
 			return DrinkSelect();
 	}
 }
@@ -144,11 +144,11 @@ int DrinkSelect(void)
 int DrinkReSelect(void)
 {
 	printf("\n");
-	printf("¶Ç ´Ù¸¥ À½·á¼ö¸¦ ¼±ÅÃÇÏ½Ã°Ú½À´Ï±î? \n\n");
-	printf("0. ¸ğµç ÁÖ¹®Àº Ãë¼ÒÇÏ°í Á¾·áÇÕ´Ï´Ù. \n");
-	printf("1. ¶Ç ´Ù¸¥ À½·á¼ö¸¦ Ãß°¡·Î ÁÖ¹®ÇÕ´Ï´Ù. \n");
-	printf("2. °áÁ¦¸Ş´º·Î ÀÌµ¿ÇÕ´Ï´Ù. \n\n");
-	printf("¼±ÅÃ(0 ~ 2¹ø): ");
+	printf("ë˜ ë‹¤ë¥¸ ìŒë£Œìˆ˜ë¥¼ ì„ íƒí•˜ì‹œê² ìŠµë‹ˆê¹Œ? \n\n");
+	printf("0. ëª¨ë“  ì£¼ë¬¸ì€ ì·¨ì†Œí•˜ê³  ì¢…ë£Œí•©ë‹ˆë‹¤. \n");
+	printf("1. ë˜ ë‹¤ë¥¸ ìŒë£Œìˆ˜ë¥¼ ì¶”ê°€ë¡œ ì£¼ë¬¸í•©ë‹ˆë‹¤. \n");
+	printf("2. ê²°ì œë©”ë‰´ë¡œ ì´ë™í•©ë‹ˆë‹¤. \n\n");
+	printf("ì„ íƒ(0 ~ 2ë²ˆ): ");
 	scanf("%d", &re_opt);
 	
 	printf("\n\n") ;
@@ -156,21 +156,21 @@ int DrinkReSelect(void)
 	switch(re_opt)
 	{
 		case 0:
-			printf("¸ğµç ÁÖ¹®À» Ãë¼ÒÇÏ¿´½À´Ï´Ù. \n");
-			printf("¾È³çÈ÷°¡¼¼¿ä. \n\n"); 
+			printf("ëª¨ë“  ì£¼ë¬¸ì„ ì·¨ì†Œí•˜ì˜€ìŠµë‹ˆë‹¤. \n");
+			printf("ì•ˆë…•íˆê°€ì„¸ìš”. \n\n"); 
 			exit(0);
 		case 1:
-			printf("À½·á¼ö ¸Ş´ºÃ¢À¸·Î ÀÌµ¿ÇÕ´Ï´Ù. \n\n");
+			printf("ìŒë£Œìˆ˜ ë©”ë‰´ì°½ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤. \n\n");
 			DrinkList();
 			DrinkSelect();
 			break;
 		case 2:
-			printf("°áÁ¦¸Ş´º·Î ÀÌµ¿ÇÕ´Ï´Ù. \n\n");
-			printf("±¸¸Å°¡°İ: %d¿ø ÀÔ´Ï´Ù. \n\n", price);
+			printf("ê²°ì œë©”ë‰´ë¡œ ì´ë™í•©ë‹ˆë‹¤. \n\n");
+			printf("êµ¬ë§¤ê°€ê²©: %dì› ì…ë‹ˆë‹¤. \n\n", price);
 			Calculate();
 			break;
 		default :
-			printf("0¹ø, 1¹ø, 2¹øÀ¸·Î ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä. \n\n");
+			printf("0ë²ˆ, 1ë²ˆ, 2ë²ˆìœ¼ë¡œ ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”. \n\n");
 			return DrinkReSelect();
 	}
 }
